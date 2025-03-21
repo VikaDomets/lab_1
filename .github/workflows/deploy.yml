@@ -1,36 +1,28 @@
-name: Build & Deploy
+name: Build and Deploy
 
 on:
   push:
     branches:
-      - main  # Запускається при кожному пуші в main
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout репозиторію
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Встановлення Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Перевірка файлів
-        run: ls -la  # Дивимося, чи є package.json
-
-      - name: Встановлення залежностей
+      - name: Install dependencies
         run: npm install
-        working-directory: ./lab_1  # Вкажи правильну папку
 
-      - name: Збірка проєкту
+      - name: Build project
         run: npm run build
-        working-directory: ./lab_1
 
-      - name: Деплой на GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./lab_1/dist  # Вкажи правильну папку збірки
+      - name: Deploy (optional)
+        run: echo "Deployment steps go here..."

@@ -3,7 +3,7 @@ name: Deploy Website
 on:
   push:
     branches:
-      - main  # Виконувати при пушах у main
+      - main  
 
 jobs:
   build:
@@ -19,10 +19,7 @@ jobs:
           node-version: 18
 
       - name: Встановлення залежностей
-        run: npm install 
-
-      - name: Збірка проєкту
-        run: npm run build  
+        run: npm install  
 
       - name: Деплой на GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

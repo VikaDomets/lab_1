@@ -1,27 +1,31 @@
-name: Build Electron App
+name: Deploy Project
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # Запускати при пушах у main
+
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - name: Checkout репозиторію
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Встановлення Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install Dependencies
+      - name: Встановлення залежностей
         run: npm install
 
-      - name: Build EXE
-        run: npm run package
+      - name: Збірка проєкту
+        run: npm run build
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+      - name: Деплой на GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: ElectronApp
-          path: MyApp-win32-x64/
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist  # Папка, яку треба деплоїти

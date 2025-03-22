@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main  # Запускати при пушах у main
-
 jobs:
   build:
     runs-on: ubuntu-latest

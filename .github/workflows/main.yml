@@ -1,28 +1,27 @@
-name: Deploy Website
+name: Build Electron App
 
-on:
-  push:
-    branches:
-      - main  
-
+on: [push]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout репозиторію
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Налаштування Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Встановлення залежностей
-        run: npm install  
+      - name: Install Dependencies
+        run: npm install
 
-      - name: Деплой на GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Build EXE
+        run: npm run package
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
-          branch: gh-pages
-          folder: dist  
+          name: ElectronApp
+          path: MyApp-win32-x64/
